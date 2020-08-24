@@ -1,26 +1,30 @@
+import cn.xpbootcamp.gildedrose.NormalProduct;
 import cn.xpbootcamp.gildedrose.PerformanceTickets;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 public class PerformanceTicketsTest {
     @Test
-    public void verifyRise1Before14Days() {
-        PerformanceTickets performanceTickets = new PerformanceTickets(15, 20);
-        int actualQuality = performanceTickets.updatedQuality(14);
-        Assert.assertEquals(21, actualQuality);
+    public void verifyPerformanceTicket() {
+        List<int[]> datas = new ArrayList<>();
+        datas.add(new int[]{15, 20, 14, 21});
+        datas.add(new int[]{10, 45, 9, 47});
+        datas.add(new int[]{9, 45, 8, 47});
+        datas.add(new int[]{10, 49, 9, 50});
+        datas.add(new int[]{10, 50, 9, 50});
+        for (int[] data : datas) {
+            verifyQuality(data[0], data[1], data[2], data[3]);
+        }
     }
 
-    @Test
-    public void verifyRise2WhenEqualTo10Days() {
-        PerformanceTickets performanceTickets = new PerformanceTickets(10, 45);
-        int actualQuality = performanceTickets.updatedQuality(9);
-        Assert.assertEquals(47, actualQuality);
-    }
-
-    @Test
-    public void verifyRise2WhenLessThan10Days() {
-        PerformanceTickets performanceTickets = new PerformanceTickets(9, 45);
-        int actualQuality = performanceTickets.updatedQuality(8);
-        Assert.assertEquals(47, actualQuality);
+    private void verifyQuality(int sellIn, int quality, int updatedSellIn, int updatedQuality) {
+        PerformanceTickets product = new PerformanceTickets(sellIn, quality);
+        int actualUpdatedQuality = product.checkQuality(updatedSellIn);
+        assertEquals(updatedQuality, actualUpdatedQuality);
     }
 }
