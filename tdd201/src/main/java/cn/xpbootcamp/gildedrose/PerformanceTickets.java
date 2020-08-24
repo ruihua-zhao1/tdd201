@@ -9,6 +9,12 @@ public class PerformanceTickets {
     }
 
     public int updatedQuality(int updatedSellIn	) {
-        return  quality + (sellIn - updatedSellIn);
+        if(updatedSellIn <=10) {
+            return quality + (sellIn - updatedSellIn) * 2;
+        }
+        else
+        {
+            return quality + (sellIn - updatedSellIn);
+         }
     }
 }
