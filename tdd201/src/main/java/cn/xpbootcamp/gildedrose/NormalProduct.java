@@ -1,6 +1,6 @@
 package cn.xpbootcamp.gildedrose;
 
-public class NormalProduct {
+public class NormalProduct implements IProduct{
     private int sellIn;
     private int quality;
 

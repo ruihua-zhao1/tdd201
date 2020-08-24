@@ -1,6 +1,6 @@
 package cn.xpbootcamp.gildedrose;
 
-public class PerformanceTickets {
+public class PerformanceTickets implements IProduct{
     private int sellIn;
     private int quality;
 
@@ -9,7 +9,7 @@ public class PerformanceTickets {
         this.quality = quality;
     }
 
-    public int checkQuality(int updatedSellIn) {
+    public int checkQuality(int updatedSellIn)  {
         int updatedQuality = 0;
         if (updatedSellIn < 0) {
             return 0;
