@@ -11,11 +11,14 @@ public class PerformanceTickets {
 
     public int checkQuality(int updatedSellIn) {
         int updatedQuality = 0;
-        if (updatedSellIn <= 10) {
-            updatedQuality = quality + (sellIn - updatedSellIn) * 2;
-        } else {
+        if (updatedSellIn > 10) {
             updatedQuality = quality + (sellIn - updatedSellIn);
+        } else if (updatedSellIn <= 5) {
+            updatedQuality = quality + (sellIn - updatedSellIn) * 3;
+        } else {
+            updatedQuality = quality + (sellIn - updatedSellIn) * 2;
         }
+
         if (updatedQuality > 50) {
             updatedQuality = 50;
         }
