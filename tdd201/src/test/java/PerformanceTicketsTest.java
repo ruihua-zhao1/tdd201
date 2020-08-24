@@ -19,6 +19,8 @@ public class PerformanceTicketsTest {
         datas.add(new int[]{10, 50, 9, 50});
         datas.add(new int[]{5, 49, 4, 50});
         datas.add(new int[]{5, 45, 4, 48});
+        datas.add(new int[]{1, 20, 0, 23});
+        datas.add(new int[]{0, 20, -1, 0});
         for (int[] data : datas) {
             verifyQuality(data[0], data[1], data[2], data[3]);
         }

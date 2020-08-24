@@ -11,6 +11,9 @@ public class PerformanceTickets {
 
     public int checkQuality(int updatedSellIn) {
         int updatedQuality = 0;
+        if (updatedSellIn < 0) {
+            return 0;
+        }
         if (updatedSellIn > 10) {
             updatedQuality = quality + (sellIn - updatedSellIn);
         } else if (updatedSellIn <= 5) {
