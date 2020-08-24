@@ -1,4 +1,4 @@
-import cn.xpbootcamp.gildedrose.Product;
+import cn.xpbootcamp.gildedrose.NormalProduct;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -6,10 +6,10 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class NormalProductTest {
+public class NormalNormalProductTest {
 
     @Test
-    public void happyCase(){
+    public void verifyNormalProduct(){
         List<int[]> datas = new ArrayList<>();
         datas.add(new int[]{10, 20, 9, 19});
         datas.add(new int[]{2, 0, 1, 0});
@@ -23,7 +23,7 @@ public class NormalProductTest {
 
 
     private void verifyQuality(int sellIn, int quality, int updatedSellIn, int updatedQuality){
-        Product product = new Product(sellIn, quality);
+        NormalProduct product = new NormalProduct(sellIn, quality);
         int actualUpdatedQuality =  product.checkQuality(updatedSellIn);
         assertEquals(updatedQuality, actualUpdatedQuality );
     }

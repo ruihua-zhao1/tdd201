@@ -1,9 +1,9 @@
 package cn.xpbootcamp.gildedrose;
 
-public class Product {
+public class NormalProduct {
     private int sellIn;
     private int quality;
-    public Product(int sellIn, int quality) {
+    public NormalProduct(int sellIn, int quality) {
         this.sellIn = sellIn;
         this.quality = quality;
     }
