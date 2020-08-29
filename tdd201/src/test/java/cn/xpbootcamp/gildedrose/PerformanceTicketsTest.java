@@ -1,3 +1,5 @@
+package cn.xpbootcamp.gildedrose;
+
 import cn.xpbootcamp.gildedrose.NormalProduct;
 import cn.xpbootcamp.gildedrose.PerformanceTickets;
 import org.junit.Assert;
