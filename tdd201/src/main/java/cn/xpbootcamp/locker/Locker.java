@@ -2,7 +2,7 @@ package cn.xpbootcamp.locker;
 
 public class Locker {
     public Ticket store(Bag bagA) {
-        return null;
+        return new Ticket();
     }
 
     public void setAvailableSpaceNumber(int i) {
