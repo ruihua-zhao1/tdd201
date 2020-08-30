@@ -31,7 +31,13 @@ public class Locker {
         if(bagMap.isEmpty()){
             throw new InvalidTicketException("Invalid ticket");
         }else{
-            return bagMap.get(ticket);
+            if(bagMap.containsKey(ticket)){
+               Bag bag = bagMap.get(ticket);
+               bagMap.remove(ticket);
+               return bag;
+            }else{
+                throw new InvalidTicketException("Invalid ticket");
+            }
         }
     }
 }

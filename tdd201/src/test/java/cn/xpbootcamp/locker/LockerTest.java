@@ -5,7 +5,6 @@ import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
 import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
-import com.sun.prism.shader.AlphaOne_Color_AlphaTest_Loader;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
