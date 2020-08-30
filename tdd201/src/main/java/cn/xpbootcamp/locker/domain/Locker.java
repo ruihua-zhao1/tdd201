@@ -1,4 +1,4 @@
-package cn.xpbootcamp.locker;
+package cn.xpbootcamp.locker.domain;
 
 public class Locker {
     public Ticket store(Bag bagA) {

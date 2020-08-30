@@ -1,6 +1,6 @@
 ## Tasking
  # 存包
-   * Given locker have one available space
+   * Given lockerA have one available space
    * And bagA want to be saved
    * When store bagA
    * Then store successfully
@@ -11,7 +11,7 @@
   * And bagA want to be saved
   * When bagA is storing
   * Then store failed
-  * Then get '<No available space>' error 
+  * And get '<No available space>' error 
    
  # 取包
  
