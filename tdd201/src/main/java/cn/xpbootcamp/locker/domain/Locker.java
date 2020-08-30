@@ -2,14 +2,19 @@ package cn.xpbootcamp.locker.domain;
 
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
+import java.util.HashMap;
+
 public class Locker {
     private Integer availableSpaceNumber;
+    private HashMap<Ticket, Bag> bagMap = new HashMap<>();
 
-    public Ticket store(Bag bagA) {
+    public Ticket store(Bag bag) {
         if(this.getAvailableSpaceNumber() == 0){
             throw new NoAvailableSpaceException("No available space");
         }else {
-            return new Ticket();
+            Ticket ticket = new Ticket();
+            bagMap.put(ticket, bag);
+            return ticket;
         }
     }
 
@@ -21,7 +26,7 @@ public class Locker {
         this.availableSpaceNumber = availableSpaceNumber;
     }
 
-    public Bag getBag(Ticket ticketA) {
-        return null;
+    public Bag getBag(Ticket ticket) {
+        return bagMap.get(ticket);
     }
 }
