@@ -53,7 +53,7 @@ public class LockerTest {
     }
 
     @Test
-    public void given_lockerA_is_empty_and_ticketA_when_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
+    public void given_lockerA_is_empty_and_invalid_ticketA_when_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
         Locker lockerA = new Locker();
         Ticket ticketA = new Ticket();
 
