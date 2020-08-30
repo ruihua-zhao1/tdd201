@@ -3,6 +3,7 @@ package cn.xpbootcamp.locker;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,5 +50,15 @@ public class LockerTest {
 
         assertNotNull(bagFromLocker);
         assertEquals(bagA, bagFromLocker);
+    }
+
+    @Test
+    public void given_lockerA_is_empty_and_ticketA_when_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker();
+        Ticket ticketA = new Ticket();
+
+        expectedEx.expect(InvalidTicketException.class);
+        expectedEx.expectMessage("Invalid ticket");
+        lockerA.getBag(ticketA);
     }
 }
