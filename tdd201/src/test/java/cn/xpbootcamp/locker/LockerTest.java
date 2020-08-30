@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class LockerTest {
@@ -21,9 +22,9 @@ public class LockerTest {
         lockerA.setAvailableSpaceNumber(1);
         Bag bagA = new Bag();
 
-        Ticket tickerA = lockerA.store(bagA);
+        Ticket ticketA = lockerA.store(bagA);
 
-        assertNotNull(tickerA);
+        assertNotNull(ticketA);
     }
 
     @Test
@@ -37,5 +38,16 @@ public class LockerTest {
         locker.store(bagA);
     }
 
+    @Test
+    public void given_lockerA_stored_a_bagA_and_ticketA_of_bagA_when_get_bagA_with_ticketA_then_get_bagA(){
+        Locker lockerA = new Locker();
+        lockerA.setAvailableSpaceNumber(1);
+        Bag bagA = new Bag();
+        Ticket ticketA = lockerA.store(bagA);
 
+        Bag bagFromLocker = lockerA.getBag(ticketA);
+
+        assertNotNull(bagFromLocker);
+        assertEquals(bagA, bagFromLocker);
+    }
 }

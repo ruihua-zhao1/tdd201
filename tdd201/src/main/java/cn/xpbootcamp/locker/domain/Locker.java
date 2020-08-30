@@ -20,4 +20,8 @@ public class Locker {
     public void setAvailableSpaceNumber(Integer availableSpaceNumber) {
         this.availableSpaceNumber = availableSpaceNumber;
     }
+
+    public Bag getBag(Ticket ticketA) {
+        return null;
+    }
 }
