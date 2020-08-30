@@ -1,5 +1,6 @@
 package cn.xpbootcamp.locker.domain;
 
+import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
 import java.util.HashMap;
@@ -27,6 +28,10 @@ public class Locker {
     }
 
     public Bag getBag(Ticket ticket) {
-        return bagMap.get(ticket);
+        if(bagMap.isEmpty()){
+            throw new InvalidTicketException("Invalid ticket");
+        }else{
+            return bagMap.get(ticket);
+        }
     }
 }
