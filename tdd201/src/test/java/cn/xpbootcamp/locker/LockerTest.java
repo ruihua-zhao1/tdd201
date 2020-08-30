@@ -5,6 +5,7 @@ import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
 import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
+import com.sun.prism.shader.AlphaOne_Color_AlphaTest_Loader;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -60,5 +61,21 @@ public class LockerTest {
         expectedEx.expect(InvalidTicketException.class);
         expectedEx.expectMessage("Invalid ticket");
         lockerA.getBag(ticketA);
+    }
+
+    @Test
+    public void given_lockerA_stored_bagA_and_bagB_and_ticketA_has_been_used_to_get_bagA_when_get_bag_with_ticketA_again_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker();
+        lockerA.setAvailableSpaceNumber(2);
+        Bag bagA = new Bag();
+        Bag bagB = new Bag();
+        Ticket ticketA = lockerA.store(bagA);
+        lockerA.store(bagB);
+        lockerA.getBag(ticketA);
+
+        expectedEx.expect(InvalidTicketException.class);
+        expectedEx.expectMessage("Invalid ticket");
+        lockerA.getBag(ticketA);
+
     }
 }
