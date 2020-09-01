@@ -10,9 +10,9 @@ public class Locker {
     private HashMap<Ticket, Bag> bagMap = new HashMap<>();
 
     public Ticket store(Bag bag) {
-        if(this.getAvailableSpaceNumber() == 0){
+        if (this.getAvailableSpaceNumber() == 0) {
             throw new NoAvailableSpaceException("No available space");
-        }else {
+        } else {
             Ticket ticket = new Ticket();
             bagMap.put(ticket, bag);
             this.availableSpaceNumber--;
@@ -29,15 +29,13 @@ public class Locker {
     }
 
     public Bag getBag(Ticket ticket) {
-        if(bagMap.isEmpty()){
+        if (bagMap.isEmpty()) {
             throw new InvalidTicketException("Invalid ticket");
-        }else{
-            if(bagMap.containsKey(ticket)){
-               Bag bag = bagMap.get(ticket);
-               bagMap.remove(ticket);
+        } else {
+            if (bagMap.containsKey(ticket)) {
                 this.availableSpaceNumber++;
-               return bag;
-            }else{
+                return bagMap.remove(ticket);
+            } else {
                 throw new InvalidTicketException("Invalid ticket");
             }
         }
