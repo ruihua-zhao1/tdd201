@@ -66,4 +66,23 @@ public class primaryLockerRobotTest {
         assertNotNull(ticketA);
         assertEquals("A", ticketA.lockerId);
     }
+
+    @Test
+    public void given_PrimaryLockerRobot_manage_LockerA_and_LockerB_only_LockerB_has_available_spaces_when_PrimaryLockerRobot_store_bagA_then_get_valid_ticketA_and_bagA_is_stored_in_LockerB() {
+        Locker lockerA = new Locker("A");
+        Locker lockerB = new Locker("B");
+        lockerA.setAvailableSpaceNumber(0);
+        lockerB.setAvailableSpaceNumber(1);
+        Bag bagA = new Bag();
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        primaryLockerRobot.setManagedLockers(lockers);
+
+        Ticket ticketB = primaryLockerRobot.store(bagA);
+
+        assertNotNull(ticketB);
+        assertEquals("B", ticketB.lockerId);
+    }
 }
