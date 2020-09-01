@@ -4,7 +4,7 @@
    * Given PrimaryLockerRobot manages LockerA and lockerA has one available space
    * When PrimaryLockerRobot stores bagA
    * Then store successfully
-   * And get valid ticketA '<ticketNumber>'
+   * And get ticketA '<ticketNumber>'
    
    * Given PrimaryLockerRobot manages LockerA and lockerA has no available space
    * When PrimaryLockerRobot stores bagA
