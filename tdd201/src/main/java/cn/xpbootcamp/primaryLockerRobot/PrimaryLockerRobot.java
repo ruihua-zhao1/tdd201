@@ -5,12 +5,10 @@ import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class PrimaryLockerRobot {
     private List<Locker> managedLockers;
-    private HashMap<Ticket, Bag> bagMap = new HashMap<>();
 
     public Ticket store(Bag bagA) {
         for (Locker locker : managedLockers) {
