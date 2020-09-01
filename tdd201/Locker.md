@@ -12,6 +12,13 @@
   * When bagA is storing
   * Then store failed
   * And get '<No available space>' error 
+  
+  ---------------
+  * Given lockerA has one available space and store bagA success
+  * When get bagA with valid ticketA
+  * And bagB is storing
+  * Then store successfully
+  * And get '<No available space>' error 
    
  # 取包
  
