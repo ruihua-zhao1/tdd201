@@ -11,13 +11,9 @@ import org.junit.rules.ExpectedException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
-
-import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class primaryLockerRobotTest {
     @Rule
@@ -25,7 +21,7 @@ public class primaryLockerRobotTest {
 
     @Test
     public void given_PrimaryLockerRobot_manages_LockerA_and_lockerA_has_one_available_space_when_PrimaryLockerRobot_stores_bagA_then_store_successfully_and_get_valid_ticketA() {
-        Locker lockerA = new Locker();
+        Locker lockerA = new Locker("A");
         lockerA.setAvailableSpaceNumber(1);
         Bag bagA = new Bag();
 
@@ -39,7 +35,7 @@ public class primaryLockerRobotTest {
 
     @Test
     public void given_primaryLockerRobot_manages_LockerA_and_lockerA_has_no_available_space_when_PrimaryLockerRobot_stores_bagA_then_get_error_message() {
-        Locker lockerA = new Locker();
+        Locker lockerA = new Locker("A");
         lockerA.setAvailableSpaceNumber(0);
         Bag bagA = new Bag();
 
@@ -53,4 +49,21 @@ public class primaryLockerRobotTest {
         primaryLockerRobot.store(bagA);
     }
 
+    @Test
+    public void given_PrimaryLockerRobot_manage_LockerA_and_LockerB_both_lockers_have_available_spaces_when_PrimaryLockerRobot_stores_bagA_then_get_valid_ticketA_and_bagA_is_stored_in_LockerA() {
+        Locker lockerA = new Locker("A");
+        Locker lockerB = new Locker("B");
+        lockerA.setAvailableSpaceNumber(1);
+        lockerB.setAvailableSpaceNumber(1);
+        Bag bagA = new Bag();
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        primaryLockerRobot.setManagedLockers(lockers);
+        Ticket ticketA = primaryLockerRobot.store(bagA);
+        assertNotNull(ticketA);
+        assertEquals("A", ticketA.lockerId);
+    }
 }
