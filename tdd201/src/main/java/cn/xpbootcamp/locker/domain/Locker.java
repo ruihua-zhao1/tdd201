@@ -45,4 +45,8 @@ public class Locker {
             }
         }
     }
+
+    public boolean exist(Ticket ticket) {
+        return bagMap.containsKey(ticket);
+    }
 }

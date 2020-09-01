@@ -26,6 +26,11 @@ public class PrimaryLockerRobot {
     }
 
     public Bag getBag(Ticket ticketA) {
-        return this.managedLockers.get(0).getBag(ticketA);
+        for(Locker locker : managedLockers){
+            if(locker.exist(ticketA)){
+                return locker.getBag(ticketA);
+            }
+        }
+        return null;
     }
 }
