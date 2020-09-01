@@ -3,6 +3,7 @@ package cn.xpbootcamp.primaryLockerRobot;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
 import java.util.List;
@@ -24,11 +25,11 @@ public class PrimaryLockerRobot {
     }
 
     public Bag getBag(Ticket ticketA) {
-        for(Locker locker : managedLockers){
-            if(locker.exist(ticketA)){
+        for (Locker locker : managedLockers) {
+            if (locker.exist(ticketA)) {
                 return locker.getBag(ticketA);
             }
         }
-        return null;
+        throw new InvalidTicketException("Invalid ticket");
     }
 }

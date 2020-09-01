@@ -134,11 +134,11 @@ public class primaryLockerRobotTest {
         List<Locker> lockers = new ArrayList<Locker>();
         lockers.add(lockerA);
         primaryLockerRobot.setManagedLockers(lockers);
-        Ticket ticketA = primaryLockerRobot.store(bagA);
+        primaryLockerRobot.store(bagA);
 
         expectedEx.expect(InvalidTicketException.class);
         expectedEx.expectMessage("Invalid ticket");
-        Bag bagFromLocker = primaryLockerRobot.getBag(invalidTicket);
+        primaryLockerRobot.getBag(invalidTicket);
     }
 
     @Test
@@ -155,7 +155,32 @@ public class primaryLockerRobotTest {
         lockers.add(lockerB);
         primaryLockerRobot.setManagedLockers(lockers);
         Ticket ticketB = primaryLockerRobot.store(bagA);
+
         Bag actualBag = primaryLockerRobot.getBag(ticketB);
+
         assertEquals(bagA, actualBag);
+    }
+
+    @Test
+    public void given_PrimaryLockerRobot_manages_lockerA_lockerB_and_invalid_ticketA_when_PrimaryLockerRobot_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker("A");
+        Locker lockerB = new Locker("B");
+        lockerA.setAvailableSpaceNumber(2);
+        lockerB.setAvailableSpaceNumber(2);
+        Bag bagA = new Bag();
+        Bag bagB = new Bag();
+        Ticket invalidTicket = new Ticket("C");
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        primaryLockerRobot.setManagedLockers(lockers);
+        primaryLockerRobot.store(bagA);
+        primaryLockerRobot.store(bagB);
+
+        expectedEx.expect(InvalidTicketException.class);
+        expectedEx.expectMessage("Invalid ticket");
+        primaryLockerRobot.getBag(invalidTicket);
     }
 }

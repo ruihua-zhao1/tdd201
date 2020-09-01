@@ -41,3 +41,7 @@
    * Given PrimaryLockerRobot manages lockerA lockerB, lockerB stored a bagB with ticketB
    * When PrimaryLockerRobot get bag with ticketB
    * Then get bagB successfully
+   
+   * Given PrimaryLockerRobot manages lockerA lockerB and invalid ticketA
+   * When PrimaryLockerRobot get bag with ticketA
+   * Then get error message
