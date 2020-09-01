@@ -38,6 +38,26 @@ public class LockerTest {
         expectedEx.expectMessage("No available space");
         locker.store(bagA);
     }
+/**
+      * Given lockerA has one available space and store bagA success
+  * When get bagA with valid ticketA
+  * And bagB is storing
+  * Then store successfully
+  * And get '<No available space>' error
+ */
+    @Test
+    public void given_lockerA_has_one_available_space_and_store_bagA_success_and_get_bagA_when_bagB_is_storing_then_store_successfully_and_no_available_space(){
+        Locker lockerA = new Locker();
+        lockerA.setAvailableSpaceNumber(1);
+        Bag bagA = new Bag();
+        Bag bagB = new Bag();
+
+        lockerA.getBag(lockerA.store(bagA));
+        Ticket ticketB = lockerA.store(bagB);
+
+        assertNotNull(ticketB);
+        assertEquals(0, lockerA.getAvailableSpaceNumber().intValue());
+    }
 
     @Test
     public void given_lockerA_stored_a_bagA_and_ticketA_of_bagA_when_get_bagA_with_ticketA_then_get_bagA(){

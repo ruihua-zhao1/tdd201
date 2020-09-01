@@ -15,6 +15,7 @@ public class Locker {
         }else {
             Ticket ticket = new Ticket();
             bagMap.put(ticket, bag);
+            this.availableSpaceNumber--;
             return ticket;
         }
     }
@@ -34,6 +35,7 @@ public class Locker {
             if(bagMap.containsKey(ticket)){
                Bag bag = bagMap.get(ticket);
                bagMap.remove(ticket);
+                this.availableSpaceNumber++;
                return bag;
             }else{
                 throw new InvalidTicketException("Invalid ticket");
