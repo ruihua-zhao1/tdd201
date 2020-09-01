@@ -3,6 +3,7 @@ package cn.xpbootcamp.primaryLockerRobot;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -120,5 +121,23 @@ public class primaryLockerRobotTest {
 
         assertNotNull(bagFromLocker);
         assertEquals(bagA, bagFromLocker);
+    }
+
+    @Test
+    public void given_PrimaryLockerRobot_manages_LockerA_and_it_stored_bagA_and_invalid_ticketA_when_PrimaryLockerRobot_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker("A");
+        lockerA.setAvailableSpaceNumber(2);
+        Bag bagA = new Bag();
+        Ticket invalidTicket = new Ticket("C");
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        primaryLockerRobot.setManagedLockers(lockers);
+        Ticket ticketA = primaryLockerRobot.store(bagA);
+
+        expectedEx.expect(InvalidTicketException.class);
+        expectedEx.expectMessage("Invalid ticket");
+        Bag bagFromLocker = primaryLockerRobot.getBag(invalidTicket);
     }
 }
