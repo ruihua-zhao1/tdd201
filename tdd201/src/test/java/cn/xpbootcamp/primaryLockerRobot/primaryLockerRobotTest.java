@@ -34,7 +34,7 @@ public class primaryLockerRobotTest {
     }
 
     @Test
-    public void given_primaryLockerRobot_manages_LockerA_and_lockerA_has_no_available_space_when_PrimaryLockerRobot_stores_bagA_then_get_error_message() throws NoAvailableSpaceException{
+    public void given_primaryLockerRobot_manages_LockerA_and_lockerA_has_no_available_space_when_PrimaryLockerRobot_stores_bagA_then_get_error_message() throws NoAvailableSpaceException {
         Locker lockerA = new Locker("A");
         lockerA.setAvailableSpaceNumber(0);
         Bag bagA = new Bag();
@@ -102,5 +102,23 @@ public class primaryLockerRobotTest {
         expectedEx.expect(NoAvailableSpaceException.class);
         expectedEx.expectMessage("No available space");
         primaryLockerRobot.store(bagA);
+    }
+
+    @Test
+    public void given_PrimaryLockerRobot_manages_LockerA_and_it_stored_bagA_and_ticketA_when_PrimaryLockerRobot_get_bag_with_ticketA_then_get_bagA() {
+        Locker lockerA = new Locker("A");
+        lockerA.setAvailableSpaceNumber(2);
+        Bag bagA = new Bag();
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        primaryLockerRobot.setManagedLockers(lockers);
+        Ticket ticketA = primaryLockerRobot.store(bagA);
+
+        Bag bagFromLocker = primaryLockerRobot.getBag(ticketA);
+
+        assertNotNull(bagFromLocker);
+        assertEquals(bagA, bagFromLocker);
     }
 }

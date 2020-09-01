@@ -5,10 +5,12 @@ import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PrimaryLockerRobot {
     private List<Locker> managedLockers;
+    private HashMap<Ticket, Bag> bagMap = new HashMap<>();
 
     public Ticket store(Bag bagA) {
         for (Locker locker : managedLockers) {
@@ -21,5 +23,9 @@ public class PrimaryLockerRobot {
 
     public void setManagedLockers(List<Locker> lockers) {
         this.managedLockers = lockers;
+    }
+
+    public Bag getBag(Ticket ticketA) {
+        return this.managedLockers.get(0).getBag(ticketA);
     }
 }
