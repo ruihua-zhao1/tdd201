@@ -2,25 +2,16 @@
  # 存包
  
  ```
- 
-   * Given lockerA have one available space
-   * And bagA want to be saved
+
+   * Given lockerA capacity is 12
    * When store bagA
    * Then store successfully
-   * And get valid ticketA '<ticketNumber>'
+   * And get valid ticketA
    
   --------------
   * Given lockerA has zero available space
-  * And bagA want to be saved
-  * When bagA is storing
+  * When store bagA
   * Then store failed
-  * And get '<No available space>' error 
-  
-  ---------------
-  * Given lockerA has one available space and store bagA success
-  * When get bagA with valid ticketA
-  * And bagB is storing
-  * Then store successfully
   * And get '<No available space>' error 
 
 ``` 

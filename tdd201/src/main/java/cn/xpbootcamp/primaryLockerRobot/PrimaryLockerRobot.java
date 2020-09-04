@@ -17,7 +17,7 @@ public class PrimaryLockerRobot {
                 return locker.store(bag);
             }
         }
-        throw new NoAvailableSpaceException("No available space");
+        throw new NoAvailableSpaceException();
     }
 
     public void setManagedLockers(List<Locker> lockers) {
@@ -30,6 +30,6 @@ public class PrimaryLockerRobot {
                 return locker.getBag(ticket);
             }
         }
-        throw new InvalidTicketException("Invalid ticket");
+        throw new InvalidTicketException();
     }
 }

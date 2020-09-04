@@ -22,8 +22,7 @@ public class primaryLockerRobotTest {
 
     @Test
     public void given_PrimaryLockerRobot_manages_LockerA_and_lockerA_has_one_available_space_when_PrimaryLockerRobot_stores_bagA_then_store_successfully_and_get_valid_ticketA() {
-        Locker lockerA = new Locker("A");
-        lockerA.setAvailableSpaceNumber(1);
+        Locker lockerA = new Locker(1);
         Bag bagA = new Bag();
 
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
@@ -36,8 +35,8 @@ public class primaryLockerRobotTest {
 
     @Test
     public void given_primaryLockerRobot_manages_LockerA_and_lockerA_has_no_available_space_when_PrimaryLockerRobot_stores_bagA_then_get_error_message() throws NoAvailableSpaceException {
-        Locker lockerA = new Locker("A");
-        lockerA.setAvailableSpaceNumber(0);
+        Locker lockerA = new Locker(1);
+        lockerA.store(new Bag());
         Bag bagA = new Bag();
 
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
@@ -46,53 +45,50 @@ public class primaryLockerRobotTest {
         primaryLockerRobot.setManagedLockers(lockers);
 
         expectedEx.expect(NoAvailableSpaceException.class);
-        expectedEx.expectMessage("No available space");
         primaryLockerRobot.store(bagA);
     }
 
     @Test
     public void given_PrimaryLockerRobot_manage_LockerA_and_LockerB_both_lockers_have_available_spaces_when_PrimaryLockerRobot_stores_bagA_then_get_valid_ticketA_and_bagA_is_stored_in_LockerA() {
-        Locker lockerA = new Locker("A");
-        Locker lockerB = new Locker("B");
-        lockerA.setAvailableSpaceNumber(1);
-        lockerB.setAvailableSpaceNumber(1);
+        Locker lockerA = new Locker(12);
+        Locker lockerB = new Locker(12);
         Bag bagA = new Bag();
-
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
         lockers.add(lockerA);
         lockers.add(lockerB);
         primaryLockerRobot.setManagedLockers(lockers);
+
         Ticket ticketA = primaryLockerRobot.store(bagA);
+
         assertNotNull(ticketA);
-        assertEquals("A", ticketA.lockerId);
+        assertEquals(bagA, lockerA.getBag(ticketA));
     }
 
     @Test
     public void given_PrimaryLockerRobot_manage_LockerA_and_LockerB_only_LockerB_has_available_spaces_when_PrimaryLockerRobot_store_bagA_then_get_valid_ticketA_and_bagA_is_stored_in_LockerB() {
-        Locker lockerA = new Locker("A");
-        Locker lockerB = new Locker("B");
-        lockerA.setAvailableSpaceNumber(0);
-        lockerB.setAvailableSpaceNumber(1);
-        Bag bagA = new Bag();
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(12);
+        lockerA.store(new Bag());
+        Bag bagB = new Bag();
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
         lockers.add(lockerA);
         lockers.add(lockerB);
         primaryLockerRobot.setManagedLockers(lockers);
 
-        Ticket ticketB = primaryLockerRobot.store(bagA);
+        Ticket ticketB = primaryLockerRobot.store(bagB);
 
         assertNotNull(ticketB);
-        assertEquals("B", ticketB.lockerId);
+        assertEquals(bagB, lockerB.getBag(ticketB));
     }
 
     @Test
     public void given_PrimaryLockerRobot_manage_LockerA_and_LockerB_both_lockers_have_no_available_space_when_PrimaryLockerRobot_store_bagA_then_get_error_message() throws NoAvailableSpaceException {
-        Locker lockerA = new Locker("A");
-        Locker lockerB = new Locker("B");
-        lockerA.setAvailableSpaceNumber(0);
-        lockerB.setAvailableSpaceNumber(0);
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        lockerA.store(new Bag());
+        lockerB.store(new Bag());
         Bag bagA = new Bag();
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
@@ -101,14 +97,12 @@ public class primaryLockerRobotTest {
         primaryLockerRobot.setManagedLockers(lockers);
 
         expectedEx.expect(NoAvailableSpaceException.class);
-        expectedEx.expectMessage("No available space");
         primaryLockerRobot.store(bagA);
     }
 
     @Test
     public void given_PrimaryLockerRobot_manages_LockerA_and_it_stored_bagA_and_ticketA_when_PrimaryLockerRobot_get_bag_with_ticketA_then_get_bagA() {
-        Locker lockerA = new Locker("A");
-        lockerA.setAvailableSpaceNumber(2);
+        Locker lockerA = new Locker(12);
         Bag bagA = new Bag();
 
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
@@ -125,10 +119,9 @@ public class primaryLockerRobotTest {
 
     @Test
     public void given_PrimaryLockerRobot_manages_LockerA_and_it_stored_bagA_and_invalid_ticketA_when_PrimaryLockerRobot_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
-        Locker lockerA = new Locker("A");
-        lockerA.setAvailableSpaceNumber(2);
+        Locker lockerA = new Locker(12);
         Bag bagA = new Bag();
-        Ticket invalidTicket = new Ticket("C");
+        Ticket invalidTicket = new Ticket();
 
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
@@ -137,50 +130,41 @@ public class primaryLockerRobotTest {
         primaryLockerRobot.store(bagA);
 
         expectedEx.expect(InvalidTicketException.class);
-        expectedEx.expectMessage("Invalid ticket");
         primaryLockerRobot.getBag(invalidTicket);
     }
 
     @Test
     public void given_PrimaryLockerRobot_manages_lockerA_lockerB_and_lockerB_stored_a_bagB_with_ticketB_when_PrimaryLockerRobot_get_bag_with_ticketB_then_get_bagB() {
-        Locker lockerA = new Locker("A");
-        Locker lockerB = new Locker("B");
-        lockerA.setAvailableSpaceNumber(0);
-        lockerB.setAvailableSpaceNumber(2);
-        Bag bagA = new Bag();
-
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(12);
+        Bag bagB = new Bag();
+        Ticket ticketB = lockerB.store(bagB);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
         lockers.add(lockerA);
         lockers.add(lockerB);
         primaryLockerRobot.setManagedLockers(lockers);
-        Ticket ticketB = primaryLockerRobot.store(bagA);
 
         Bag actualBag = primaryLockerRobot.getBag(ticketB);
 
-        assertEquals(bagA, actualBag);
+        assertEquals(bagB, actualBag);
     }
 
     @Test
     public void given_PrimaryLockerRobot_manages_lockerA_lockerB_and_invalid_ticketA_when_PrimaryLockerRobot_get_bag_with_ticketA_then_get_error_message() throws InvalidTicketException {
-        Locker lockerA = new Locker("A");
-        Locker lockerB = new Locker("B");
-        lockerA.setAvailableSpaceNumber(2);
-        lockerB.setAvailableSpaceNumber(2);
-        Bag bagA = new Bag();
-        Bag bagB = new Bag();
-        Ticket invalidTicket = new Ticket("C");
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        lockerA.store(new Bag());
+        lockerB.store(new Bag());
+        Ticket invalidTicket = new Ticket();
 
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
         lockers.add(lockerA);
         lockers.add(lockerB);
         primaryLockerRobot.setManagedLockers(lockers);
-        primaryLockerRobot.store(bagA);
-        primaryLockerRobot.store(bagB);
 
         expectedEx.expect(InvalidTicketException.class);
-        expectedEx.expectMessage("Invalid ticket");
         primaryLockerRobot.getBag(invalidTicket);
     }
 }
