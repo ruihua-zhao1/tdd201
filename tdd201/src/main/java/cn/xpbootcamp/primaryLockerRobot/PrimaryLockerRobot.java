@@ -11,10 +11,10 @@ import java.util.List;
 public class PrimaryLockerRobot {
     private List<Locker> managedLockers;
 
-    public Ticket store(Bag bagA) {
+    public Ticket store(Bag bag) {
         for (Locker locker : managedLockers) {
             if (locker.getAvailableSpaceNumber() > 0) {
-                return locker.store(bagA);
+                return locker.store(bag);
             }
         }
         throw new NoAvailableSpaceException("No available space");
@@ -24,10 +24,10 @@ public class PrimaryLockerRobot {
         this.managedLockers = lockers;
     }
 
-    public Bag getBag(Ticket ticketA) {
+    public Bag getBag(Ticket ticket) {
         for (Locker locker : managedLockers) {
-            if (locker.exist(ticketA)) {
-                return locker.getBag(ticketA);
+            if (locker.exist(ticket)) {
+                return locker.getBag(ticket);
             }
         }
         throw new InvalidTicketException("Invalid ticket");
