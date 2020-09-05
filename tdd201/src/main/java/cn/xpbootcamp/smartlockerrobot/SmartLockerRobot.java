@@ -3,6 +3,7 @@ package cn.xpbootcamp.smartlockerrobot;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class SmartLockerRobot {
                 lockerWithMostAvaliableSpace = locker;
             }
         }
-       return lockerWithMostAvaliableSpace.store(bag);
+        if(lockerWithMostAvaliableSpace.getAvailableSpaceNumber() > 0){
+            return lockerWithMostAvaliableSpace.store(bag);
+        }
+        throw new NoAvailableSpaceException();
     }
 }
