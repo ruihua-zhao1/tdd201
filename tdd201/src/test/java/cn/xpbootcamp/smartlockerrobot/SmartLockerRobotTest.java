@@ -151,4 +151,20 @@ public class SmartLockerRobotTest {
         smartLockerRobot.getBag(invalidTicket);
     }
 
+    @Test
+    public void given_smartLockerRobot_managed_lockerA_lockerB_and_it_stored_bagA_when_get_bag_then_get_bagA() {
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(2);
+        Bag bagB = new Bag();
+
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        smartLockerRobot.setManagedLockers(lockers);
+        Ticket ticketB = smartLockerRobot.store(bagB);
+
+        Bag bagFromSLRobot = smartLockerRobot.getBag(ticketB);
+        assertEquals(bagB, bagFromSLRobot);
+    }
 }

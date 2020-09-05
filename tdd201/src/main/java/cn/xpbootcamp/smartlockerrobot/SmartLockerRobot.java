@@ -30,6 +30,11 @@ public class SmartLockerRobot {
     }
 
     public Bag getBag(Ticket ticket) {
-        return managedLockers.get(0).getBag(ticket);
+        for (Locker locker : managedLockers) {
+            if (locker.exist(ticket)) {
+                return locker.getBag(ticket);
+            }
+        }
+        return null;
     }
 }
