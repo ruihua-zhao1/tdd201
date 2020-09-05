@@ -82,4 +82,21 @@ public class SmartLockerRobotTest {
         assertNotNull(ticketA);
         assertEquals(bagA, lockerB.getBag(ticketA));
     }
+
+    @Test
+    public void given_smartLockerRobot_managed_lockerA_lockerB_and_both_have_same_available_space_when_store_bagA_then_bagA_is_stored_by_locker_order(){
+        Locker lockerA = new Locker(2);
+        Locker lockerB = new Locker(2);
+        Bag bagA = new Bag();
+        SmartLockerRobot smartLockerRobot= new SmartLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        smartLockerRobot.setManagedLockers(lockers);
+
+        Ticket ticketA = smartLockerRobot.store(bagA);
+
+        assertNotNull(ticketA);
+        assertEquals(bagA, lockerA.getBag(ticketA));
+    }
 }
