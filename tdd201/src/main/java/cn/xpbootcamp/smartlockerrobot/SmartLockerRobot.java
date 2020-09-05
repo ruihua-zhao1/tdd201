@@ -28,4 +28,8 @@ public class SmartLockerRobot {
         }
         throw new NoAvailableSpaceException();
     }
+
+    public Bag getBag(Ticket ticket) {
+        return managedLockers.get(0).getBag(ticket);
+    }
 }
