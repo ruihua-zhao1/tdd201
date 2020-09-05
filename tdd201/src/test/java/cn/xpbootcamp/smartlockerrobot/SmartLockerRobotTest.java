@@ -167,4 +167,22 @@ public class SmartLockerRobotTest {
         Bag bagFromSLRobot = smartLockerRobot.getBag(ticketB);
         assertEquals(bagB, bagFromSLRobot);
     }
+
+    @Test
+    public void given_SmartLockerRobot_managed_LockerA_lockerB_when_get_bag_with_fake_ticket_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker(12);
+        Locker lockerB = new Locker(12);
+        Bag bagA = new Bag();
+        Ticket invalidTicket = new Ticket();
+
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        smartLockerRobot.setManagedLockers(lockers);
+        smartLockerRobot.store(bagA);
+
+        expectedEx.expect(InvalidTicketException.class);
+        smartLockerRobot.getBag(invalidTicket);
+    }
 }

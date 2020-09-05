@@ -3,6 +3,7 @@ package cn.xpbootcamp.smartlockerrobot;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
 import java.util.List;
@@ -35,6 +36,6 @@ public class SmartLockerRobot {
                 return locker.getBag(ticket);
             }
         }
-        return null;
+        throw new InvalidTicketException();
     }
 }
