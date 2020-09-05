@@ -14,6 +14,14 @@ public class SmartLockerRobot {
     }
 
     public Ticket store(Bag bag) {
-        return managedLockers.get(0).store(bag);
+
+        Locker lockerWithMostAvaliableSpace = managedLockers.get(0);
+
+        for(Locker locker: managedLockers){
+            if(locker.getAvailableSpaceNumber() > lockerWithMostAvaliableSpace.getAvailableSpaceNumber()){
+                lockerWithMostAvaliableSpace = locker;
+            }
+        }
+       return lockerWithMostAvaliableSpace.store(bag);
     }
 }

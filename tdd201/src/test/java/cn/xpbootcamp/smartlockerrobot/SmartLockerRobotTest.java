@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SmartLockerRobotTest {
 
@@ -46,5 +47,39 @@ public class SmartLockerRobotTest {
 
         expectedEx.expect(NoAvailableSpaceException.class);
         smartLockerRobot.store(bagA);
+    }
+
+    @Test
+    public void given_smartLockerRobot_managed_lockerA_lockerB_and_lockerA_has_more_available_space_when_store_bagA_then_bagA_is_stored_in_lockerA(){
+        Locker lockerA = new Locker(2);
+        Locker lockerB = new Locker(1);
+        Bag bagA = new Bag();
+        SmartLockerRobot smartLockerRobot= new SmartLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        smartLockerRobot.setManagedLockers(lockers);
+
+        Ticket ticketA = smartLockerRobot.store(bagA);
+
+        assertNotNull(ticketA);
+        assertEquals(bagA, lockerA.getBag(ticketA));
+    }
+
+    @Test
+    public void given_smartLockerRobot_managed_lockerA_lockerB_and_lockerB_has_more_available_space_when_store_bagA_then_bagA_is_stored_in_lockerB(){
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(2);
+        Bag bagA = new Bag();
+        SmartLockerRobot smartLockerRobot= new SmartLockerRobot();
+        List<Locker> lockers = new ArrayList<Locker>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+        smartLockerRobot.setManagedLockers(lockers);
+
+        Ticket ticketA = smartLockerRobot.store(bagA);
+
+        assertNotNull(ticketA);
+        assertEquals(bagA, lockerB.getBag(ticketA));
     }
 }
