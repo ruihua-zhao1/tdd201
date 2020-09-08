@@ -3,6 +3,7 @@ package cn.xpbootcamp.lockerrobotmanager;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
 import java.util.List;
 
@@ -19,6 +20,6 @@ public class LockerRobotManager {
                 return locker.store(bag);
             }
         }
-        return null;
+        throw new NoAvailableSpaceException();
     }
 }

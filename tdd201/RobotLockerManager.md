@@ -13,7 +13,7 @@
    * And get valid ticketB <ticketNumber>
    * And bagA is stored in LockerB
 
-   * Given LockerManager only manages A and LockerB, both lockers have no available space
+   * Given LockerManager only manages LockerA and LockerB, both lockers have no available space
    * When LockerManager store bagA
    * Then store failed
    * And get <No available space> error
