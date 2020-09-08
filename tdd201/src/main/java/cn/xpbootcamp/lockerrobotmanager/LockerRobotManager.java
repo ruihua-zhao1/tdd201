@@ -7,13 +7,18 @@ import cn.xpbootcamp.locker.domain.Ticket;
 import java.util.List;
 
 public class LockerRobotManager {
-    private List<Locker> lockers;
+    private List<Locker> managedLockers;
 
     public LockerRobotManager(List<Locker> lockers) {
-        this.lockers = lockers;
+        this.managedLockers = lockers;
     }
 
-    public Ticket store(Bag bagA) {
-       return lockers.get(0).store(bagA);
+    public Ticket store(Bag bag) {
+        for (Locker locker : managedLockers) {
+            if (locker.getAvailableSpaceNumber() > 0) {
+                return locker.store(bag);
+            }
+        }
+        return null;
     }
 }
