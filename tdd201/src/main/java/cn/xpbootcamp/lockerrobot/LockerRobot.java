@@ -34,4 +34,15 @@ public abstract class LockerRobot {
         }
         throw new InvalidTicketException();
     }
+
+    public boolean isAvailable() {
+        if (managedLockers != null) {
+            for (Locker locker : managedLockers) {
+                if (locker.getAvailableSpaceNumber() > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

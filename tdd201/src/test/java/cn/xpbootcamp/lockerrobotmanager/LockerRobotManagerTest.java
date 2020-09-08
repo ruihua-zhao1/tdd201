@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -25,10 +26,8 @@ public class LockerRobotManagerTest {
         Locker lockerA = new Locker(1);
         Locker lockerB = new Locker(1);
         Bag bagA = new Bag();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
 
-        LockerRobotManager lockerRobotManager = new LockerRobotManager(lockers);
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerA, lockerB), null);
         Ticket ticketA = lockerRobotManager.store(bagA);
 
         assertNotNull(ticketA);
@@ -40,11 +39,8 @@ public class LockerRobotManagerTest {
         lockerA.store(new Bag());
         Locker lockerB = new Locker(1);
         Bag bagA = new Bag();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
 
-        LockerRobotManager lockerRobotManager = new LockerRobotManager(lockers);
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerA, lockerB), null);
         Ticket ticketA = lockerRobotManager.store(bagA);
         assertNotNull(ticketA);
     }
@@ -56,13 +52,25 @@ public class LockerRobotManagerTest {
         Locker lockerB = new Locker(1);
         lockerB.store(new Bag());
         Bag bagA = new Bag();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
 
-        LockerRobotManager lockerRobotManager = new LockerRobotManager(lockers);
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerA, lockerB), null);
 
         expectedEx.expect(NoAvailableSpaceException.class);
         lockerRobotManager.store(bagA);
+    }
+
+    @Test
+    public void given_LockerRobotManager_managed_robotA_and_robotB_both_are_available_when_store_bagA_then_store_success() {
+
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(lockerB));
+        Bag bagA = new Bag();
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(null, Arrays.asList(primaryLockerRobot, smartLockerRobot));
+        Ticket ticketA = lockerRobotManager.store(bagA);
+
+        assertNotNull(ticketA);
     }
 }
