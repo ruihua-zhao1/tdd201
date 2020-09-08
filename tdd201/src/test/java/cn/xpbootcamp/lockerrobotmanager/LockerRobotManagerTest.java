@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class LockerRobotManagerTest {
@@ -72,5 +73,21 @@ public class LockerRobotManagerTest {
         Ticket ticketA = lockerRobotManager.store(bagA);
 
         assertNotNull(ticketA);
+    }
+
+    @Test
+    public void given_LockerRobotManager_managed_robotA_is_not_available_and_robotB_is_available_when_store_bagA_then_store_success() {
+        Locker lockerA = new Locker(1);
+        lockerA.store(new Bag());
+        Locker lockerB = new Locker(1);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(lockerB));
+        Bag bagA = new Bag();
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(null, Arrays.asList(primaryLockerRobot, smartLockerRobot));
+        Ticket ticketA = lockerRobotManager.store(bagA);
+
+        assertNotNull(ticketA);
+        assertEquals(bagA, smartLockerRobot.getBag(ticketA));
     }
 }
