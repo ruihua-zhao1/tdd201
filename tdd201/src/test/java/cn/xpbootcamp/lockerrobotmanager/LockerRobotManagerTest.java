@@ -106,4 +106,18 @@ public class LockerRobotManagerTest {
         expectedEx.expect(NoAvailableSpaceException.class);
         lockerRobotManager.store(bagA);
     }
+
+    @Test
+    public void given_LockerRobotManager_managed_available_robotA_and_available_lockers_when_store_bagA_then_store_success() {
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerB));
+        Bag bagA = new Bag();
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerA), Arrays.asList(primaryLockerRobot));
+        Ticket ticketA = lockerRobotManager.store(bagA);
+
+        assertNotNull(ticketA);
+        assertEquals(bagA, primaryLockerRobot.getBag(ticketA));
+    }
 }
