@@ -4,6 +4,7 @@ import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
+import cn.xpbootcamp.primaryLockerRobot.PrimaryLockerRobot;
 import cn.xpbootcamp.smartlockerrobot.SmartLockerRobot;
 import org.junit.Rule;
 import org.junit.Test;

@@ -5,31 +5,26 @@ import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
 import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
+import cn.xpbootcamp.lockerrobot.LockerRobot;
 
 import java.util.List;
 
-public class PrimaryLockerRobot {
+public class PrimaryLockerRobot extends LockerRobot {
     private List<Locker> managedLockers;
 
-    public Ticket store(Bag bag) {
+    public PrimaryLockerRobot(List<Locker> managedLockers) {
+        super(managedLockers);
+        this.managedLockers = managedLockers;
+    }
+
+    @Override
+    public Locker getTargetLocker() {
         for (Locker locker : managedLockers) {
             if (locker.getAvailableSpaceNumber() > 0) {
-                return locker.store(bag);
+                return locker;
             }
         }
-        throw new NoAvailableSpaceException();
-    }
 
-    public void setManagedLockers(List<Locker> lockers) {
-        this.managedLockers = lockers;
-    }
-
-    public Bag getBag(Ticket ticket) {
-        for (Locker locker : managedLockers) {
-            if (locker.exist(ticket)) {
-                return locker.getBag(ticket);
-            }
-        }
-        throw new InvalidTicketException();
+        return null;
     }
 }

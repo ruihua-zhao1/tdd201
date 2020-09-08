@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -25,10 +26,9 @@ public class primaryLockerRobotTest {
         Locker lockerA = new Locker(1);
         Bag bagA = new Bag();
 
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockers = new ArrayList<Locker>();
         lockers.add(lockerA);
-        primaryLockerRobot.setManagedLockers(lockers);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockers);
         Ticket ticketA = primaryLockerRobot.store(bagA);
         assertNotNull(ticketA);
     }
@@ -39,10 +39,8 @@ public class primaryLockerRobotTest {
         lockerA.store(new Bag());
         Bag bagA = new Bag();
 
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        primaryLockerRobot.setManagedLockers(lockers);
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
 
         expectedEx.expect(NoAvailableSpaceException.class);
         primaryLockerRobot.store(bagA);
@@ -53,12 +51,8 @@ public class primaryLockerRobotTest {
         Locker lockerA = new Locker(12);
         Locker lockerB = new Locker(12);
         Bag bagA = new Bag();
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
-        primaryLockerRobot.setManagedLockers(lockers);
 
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA, lockerB));
         Ticket ticketA = primaryLockerRobot.store(bagA);
 
         assertNotNull(ticketA);
@@ -71,12 +65,8 @@ public class primaryLockerRobotTest {
         Locker lockerB = new Locker(12);
         lockerA.store(new Bag());
         Bag bagB = new Bag();
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
-        primaryLockerRobot.setManagedLockers(lockers);
 
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA, lockerB));
         Ticket ticketB = primaryLockerRobot.store(bagB);
 
         assertNotNull(ticketB);
@@ -90,11 +80,8 @@ public class primaryLockerRobotTest {
         lockerA.store(new Bag());
         lockerB.store(new Bag());
         Bag bagA = new Bag();
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
-        primaryLockerRobot.setManagedLockers(lockers);
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA, lockerB));
 
         expectedEx.expect(NoAvailableSpaceException.class);
         primaryLockerRobot.store(bagA);
@@ -105,10 +92,7 @@ public class primaryLockerRobotTest {
         Locker lockerA = new Locker(12);
         Bag bagA = new Bag();
 
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        primaryLockerRobot.setManagedLockers(lockers);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
         Ticket ticketA = primaryLockerRobot.store(bagA);
 
         Bag bagFromLocker = primaryLockerRobot.getBag(ticketA);
@@ -123,10 +107,7 @@ public class primaryLockerRobotTest {
         Bag bagA = new Bag();
         Ticket invalidTicket = new Ticket();
 
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        primaryLockerRobot.setManagedLockers(lockers);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
         primaryLockerRobot.store(bagA);
 
         expectedEx.expect(InvalidTicketException.class);
@@ -139,11 +120,7 @@ public class primaryLockerRobotTest {
         Locker lockerB = new Locker(12);
         Bag bagB = new Bag();
         Ticket ticketB = lockerB.store(bagB);
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
-        primaryLockerRobot.setManagedLockers(lockers);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA, lockerB));
 
         Bag actualBag = primaryLockerRobot.getBag(ticketB);
 
@@ -158,11 +135,7 @@ public class primaryLockerRobotTest {
         lockerB.store(new Bag());
         Ticket invalidTicket = new Ticket();
 
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        List<Locker> lockers = new ArrayList<Locker>();
-        lockers.add(lockerA);
-        lockers.add(lockerB);
-        primaryLockerRobot.setManagedLockers(lockers);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA, lockerB));
 
         expectedEx.expect(InvalidTicketException.class);
         primaryLockerRobot.getBag(invalidTicket);
