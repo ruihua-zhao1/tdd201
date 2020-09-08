@@ -200,4 +200,17 @@ public class LockerRobotManagerTest {
         expectedEx.expect(InvalidTicketException.class);
         lockerRobotManager.getBag(new Ticket());
     }
+
+    @Test
+    public void given_LockerRobotManager_managed_RobotA_stored_bagA_and_lockerA_when_get_bag_then_get_bagA(){
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        lockerB.store(new Bag());
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerB), Arrays.asList(primaryLockerRobot));
+        Bag bagA = new Bag();
+        Ticket ticketA = lockerRobotManager.store(bagA);
+
+        assertEquals(bagA, lockerRobotManager.getBag(ticketA));
+    }
 }
