@@ -24,8 +24,6 @@ public abstract class LockerRobot {
         return targetLocker.store(bag);
     }
 
-    public abstract Locker getTargetLocker();
-
     public Bag getBag(Ticket ticket) {
         for (Locker locker : managedLockers) {
             if (locker.exist(ticket)) {
@@ -45,4 +43,17 @@ public abstract class LockerRobot {
         }
         return false;
     }
+
+    public boolean exist(Ticket ticket) {
+        if (managedLockers != null) {
+            for (Locker locker : managedLockers) {
+                if (locker.exist(ticket)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public abstract Locker getTargetLocker();
 }

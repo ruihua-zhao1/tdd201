@@ -37,15 +37,9 @@ public class LockerRobotManager {
 
     public Bag getBag(Ticket ticket) {
         for (LockerRobot lockerRobot : managedLockerRobots) {
-            try {
-                Bag gettedBag = lockerRobot.getBag(ticket);
-                if (gettedBag != null) {
-                    return gettedBag;
-                }
-            } catch (Exception e) {
-                continue;
+            if(lockerRobot.exist(ticket)){
+                return lockerRobot.getBag(ticket);
             }
-
         }
         return null;
     }
