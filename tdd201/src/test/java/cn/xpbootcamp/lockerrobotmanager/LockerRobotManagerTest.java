@@ -3,6 +3,7 @@ package cn.xpbootcamp.lockerrobotmanager;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 import cn.xpbootcamp.primaryLockerRobot.PrimaryLockerRobot;
 import cn.xpbootcamp.smartlockerrobot.SmartLockerRobot;
@@ -162,4 +163,18 @@ public class LockerRobotManagerTest {
 
         assertEquals(bagA, lockerRobotManager.getBag(ticketA));
     }
+
+    @Test
+    public void given_LockerRobotManager_managed_two_robots_and_store_a_bag_when_get_bag_with_fake_ticket_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker(1);
+        lockerA.store(new Bag());
+        Locker lockerB = new Locker(1);
+        PrimaryLockerRobot primaryLockerRobotA = new PrimaryLockerRobot(Arrays.asList(lockerA));
+        PrimaryLockerRobot primaryLockerRobotB = new PrimaryLockerRobot(Arrays.asList(lockerB));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(null, Arrays.asList(primaryLockerRobotA, primaryLockerRobotB));
+
+        expectedEx.expect(InvalidTicketException.class);
+        lockerRobotManager.getBag(new Ticket());
+    }
+
 }
