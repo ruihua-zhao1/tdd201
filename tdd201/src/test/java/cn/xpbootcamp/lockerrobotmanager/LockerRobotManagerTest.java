@@ -227,4 +227,16 @@ public class LockerRobotManagerTest {
         assertEquals(bagA, lockerRobotManager.getBag(ticketA));
     }
 
+    @Test
+    public void given_LockerRobotManager_managed_RobotA_and_lockerA_store_a_bag_when_get_bag_with_fake_ticket_then_get_error_message() throws InvalidTicketException {
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        lockerB.store(new Bag());
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerB), Arrays.asList(primaryLockerRobot));
+
+        expectedEx.expect(InvalidTicketException.class);
+        lockerRobotManager.getBag(new Ticket());
+    }
+
 }
