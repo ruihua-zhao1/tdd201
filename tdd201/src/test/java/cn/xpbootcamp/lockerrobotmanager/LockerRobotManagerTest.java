@@ -120,4 +120,19 @@ public class LockerRobotManagerTest {
         assertNotNull(ticketA);
         assertEquals(bagA, primaryLockerRobot.getBag(ticketA));
     }
+
+    @Test
+    public void given_LockerRobotManager_managed_unavailable_robotA_and_available_lockerA_when_store_bagA_then_store_success() {
+        Locker lockerA = new Locker(1);
+        lockerA.store(new Bag());
+        Locker lockerB = new Locker(1);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA));
+        Bag bagA = new Bag();
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerB), Arrays.asList(primaryLockerRobot));
+        Ticket ticketA = lockerRobotManager.store(bagA);
+
+        assertNotNull(ticketA);
+        assertEquals(bagA, lockerB.getBag(ticketA));
+    }
 }
