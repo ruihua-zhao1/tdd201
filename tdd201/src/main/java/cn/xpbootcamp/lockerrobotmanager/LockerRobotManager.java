@@ -18,7 +18,6 @@ public class LockerRobotManager {
     }
 
     public Ticket store(Bag bag) {
-
         if (managedLockerRobots != null) {
             for (LockerRobot lockerRobot : managedLockerRobots) {
                 if (lockerRobot.isAvailable()) {
@@ -32,8 +31,22 @@ public class LockerRobotManager {
                     return locker.store(bag);
                 }
             }
-
         }
         throw new NoAvailableSpaceException();
+    }
+
+    public Bag getBag(Ticket ticket) {
+        for (LockerRobot lockerRobot : managedLockerRobots) {
+            try {
+                Bag gettedBag = lockerRobot.getBag(ticket);
+                if (gettedBag != null) {
+                    return gettedBag;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+
+        }
+        return null;
     }
 }
