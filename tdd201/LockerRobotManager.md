@@ -62,23 +62,23 @@
    * When get bag with fake ticket
    * Then get '<Invalid ticket>' error 
 
-   * Given LockerManager manages RobotA and lockerA and it stored a bag to RobotA with ticketA
-   * When get bag with ticketA
-   * Then get bagA successfully
-   
-   * Given LockerManager manages RobotA and lockerA and it stored a bag to lockerA with ticketA
-   * When get bag with ticketA
-   * Then get bagA successfully
+   * Given LockerManager only manages two lockers and it stored a bag to lockerB with ticketB
+   * When get bag with ticketB
+   * Then get bag successfully
 
-   * Given LockerManager manages RobotA and lockerA it stored a bag with ticketA
+   * Given LockerManager only manages two lockers and it stored a bag with ticketA
    * When get bag with fake ticket
    * Then get '<Invalid ticket>' error 
 
-   * Given LockerManager only manages two lockers and it stored a bag to lockerB with ticketB
-   * When get bag with ticketB
-   * Then get bagA successfully
+   * Given LockerManager manages RobotA and lockerA and it stored a bag to RobotA with ticketA
+   * When get bag with ticketA
+   * Then get bag successfully
+   
+   * Given LockerManager manages RobotA and lockerA and it stored a bag to lockerA with ticketA
+   * When get bag with ticketA
+   * Then get bag successfully
 
-   * Given LockerManager only manages two lockers and it stored a bag with ticketA
+   * Given LockerManager manages RobotA and lockerA it stored a bag with ticketA
    * When get bag with fake ticket
    * Then get '<Invalid ticket>' error 
 

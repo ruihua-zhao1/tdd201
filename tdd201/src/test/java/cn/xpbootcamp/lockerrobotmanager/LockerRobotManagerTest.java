@@ -177,4 +177,15 @@ public class LockerRobotManagerTest {
         lockerRobotManager.getBag(new Ticket());
     }
 
+    @Test
+    public void given_LockerRobotManager_managed_two_lockers_and_store_a_bag_to_lockerB_when_get_bag_then_get_bag_success() {
+        Locker lockerA = new Locker(1);
+        lockerA.store(new Bag());
+        Locker lockerB = new Locker(1);
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerA, lockerB), null);
+        Bag bagA = new Bag();
+        Ticket ticketA = lockerRobotManager.store(bagA);
+
+        assertEquals(bagA, lockerRobotManager.getBag(ticketA));
+    }
 }

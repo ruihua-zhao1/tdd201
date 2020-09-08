@@ -19,14 +19,14 @@ public class LockerRobotManager {
     }
 
     public Ticket store(Bag bag) {
-        if (managedLockerRobots != null) {
+        if (managedLockerRobots != null && !managedLockerRobots.isEmpty()) {
             for (LockerRobot lockerRobot : managedLockerRobots) {
                 if (lockerRobot.isAvailable()) {
                     return lockerRobot.store(bag);
                 }
             }
         }
-        if (managedLockers != null) {
+        if (managedLockers != null && !managedLockers.isEmpty()) {
             for (Locker locker : managedLockers) {
                 if (locker.getAvailableSpaceNumber() > 0) {
                     return locker.store(bag);
@@ -37,9 +37,18 @@ public class LockerRobotManager {
     }
 
     public Bag getBag(Ticket ticket) {
-        for (LockerRobot lockerRobot : managedLockerRobots) {
-            if(lockerRobot.exist(ticket)){
-                return lockerRobot.getBag(ticket);
+        if(managedLockerRobots != null && !managedLockerRobots.isEmpty()){
+            for (LockerRobot lockerRobot : managedLockerRobots) {
+                if(lockerRobot.exist(ticket)){
+                    return lockerRobot.getBag(ticket);
+                }
+            }
+        }
+        if (managedLockers != null && !managedLockers.isEmpty()) {
+            for (Locker locker : managedLockers) {
+                if (locker.exist(ticket)) {
+                    return locker.getBag(ticket);
+                }
             }
         }
         throw new InvalidTicketException();
