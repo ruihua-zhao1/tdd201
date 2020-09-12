@@ -2,7 +2,7 @@
  ## Tasking
  # 生成报告
 ```
-   * Given LockerRobotDirector managed 1 LockerManager and managed 1 locker
+   * Given LockerRobotDirector managed 1 LockerManager managed 1 locker
    * When LockerRobotDirector request to generate the report
    * Then it can generate the correct report
          M a t

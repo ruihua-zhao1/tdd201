@@ -1,15 +1,15 @@
 package cn.xpbootcamp.lockerrobotmanager;
 
-import cn.xpbootcamp.locker.domain.Bag;
-import cn.xpbootcamp.locker.domain.Locker;
-import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.domain.*;
+import cn.xpbootcamp.locker.enums.TypeEnum;
 import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 import cn.xpbootcamp.lockerrobot.LockerRobot;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class LockerRobotManager {
+public class LockerRobotManager implements Reportable {
     private List<Locker> managedLockers;
     private List<LockerRobot> managedLockerRobots;
 
@@ -37,9 +37,9 @@ public class LockerRobotManager {
     }
 
     public Bag getBag(Ticket ticket) {
-        if(managedLockerRobots != null && !managedLockerRobots.isEmpty()){
+        if (managedLockerRobots != null && !managedLockerRobots.isEmpty()) {
             for (LockerRobot lockerRobot : managedLockerRobots) {
-                if(lockerRobot.exist(ticket)){
+                if (lockerRobot.exist(ticket)) {
                     return lockerRobot.getBag(ticket);
                 }
             }
@@ -52,5 +52,27 @@ public class LockerRobotManager {
             }
         }
         throw new InvalidTicketException();
+    }
+
+    @Override
+    public Report report() {
+        Report report = new Report();
+        report.setType(TypeEnum.LOCKER_ROBOT_MANAGER);
+        Integer available = 0;
+        Integer capacity = 0;
+        List<Report> lockerReports = new ArrayList<Report>();
+
+        for (Locker locker : managedLockers) {
+            lockerReports.add(locker.report());
+        }
+        for (Report r : lockerReports) {
+            available += r.getAvailable();
+            capacity += r.getCapacity();
+        }
+        report.setCapacity(capacity);
+        report.setAvailable(available);
+        report.setSubReports(lockerReports);
+
+        return report;
     }
 }
