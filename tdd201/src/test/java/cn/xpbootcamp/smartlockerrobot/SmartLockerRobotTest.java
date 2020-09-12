@@ -8,11 +8,7 @@ import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

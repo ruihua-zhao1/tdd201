@@ -1,13 +1,8 @@
 package cn.xpbootcamp.gildedrose;
 
-import cn.xpbootcamp.gildedrose.NormalProduct;
-import cn.xpbootcamp.gildedrose.PerformanceTickets;
-import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class PerformanceTicketsTest {

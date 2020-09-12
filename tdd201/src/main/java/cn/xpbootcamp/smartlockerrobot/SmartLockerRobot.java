@@ -1,10 +1,6 @@
 package cn.xpbootcamp.smartlockerrobot;
 
-import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
-import cn.xpbootcamp.locker.domain.Ticket;
-import cn.xpbootcamp.locker.exception.InvalidTicketException;
-import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 import cn.xpbootcamp.lockerrobot.LockerRobot;
 
 import java.util.List;

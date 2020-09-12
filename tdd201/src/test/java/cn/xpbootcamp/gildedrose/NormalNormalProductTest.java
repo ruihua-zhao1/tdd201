@@ -1,11 +1,8 @@
 package cn.xpbootcamp.gildedrose;
 
-import cn.xpbootcamp.gildedrose.NormalProduct;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class NormalNormalProductTest {
