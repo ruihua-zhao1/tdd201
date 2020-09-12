@@ -60,19 +60,25 @@ public class LockerRobotManager implements Reportable {
         report.setType(TypeEnum.LOCKER_ROBOT_MANAGER);
         Integer available = 0;
         Integer capacity = 0;
-        List<Report> lockerReports = new ArrayList<Report>();
-
-        for (Locker locker : managedLockers) {
-            lockerReports.add(locker.report());
+        List<Report> subReports = new ArrayList<Report>();
+        if (managedLockerRobots != null && !managedLockerRobots.isEmpty()) {
+            for (LockerRobot robot : managedLockerRobots) {
+                subReports.add(robot.report());
+            }
         }
-        for (Report r : lockerReports) {
+
+        if (managedLockers != null && !managedLockers.isEmpty()) {
+            for (Locker locker : managedLockers) {
+                subReports.add(locker.report());
+            }
+        }
+        for (Report r : subReports) {
             available += r.getAvailable();
             capacity += r.getCapacity();
         }
         report.setCapacity(capacity);
         report.setAvailable(available);
-        report.setSubReports(lockerReports);
-
+        report.setSubReports(subReports);
         return report;
     }
 }

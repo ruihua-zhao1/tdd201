@@ -3,6 +3,7 @@ package cn.xpbootcamp.lockerrobotdirector;
 import cn.xpbootcamp.locker.domain.Bag;
 import cn.xpbootcamp.locker.domain.Locker;
 import cn.xpbootcamp.lockerrobotmanager.LockerRobotManager;
+import cn.xpbootcamp.primaryLockerRobot.PrimaryLockerRobot;
 import org.junit.Test;
 import java.util.Arrays;
 
@@ -18,7 +19,7 @@ public class LockerRobotDirectorTest {
         LockerRobotDirector lockerRobotDirector = new LockerRobotDirector(Arrays.asList(lockerRobotManager));
         String output = lockerRobotDirector.generateReport();
 
-        assertEquals("M 1 2\n  L 1 2" , output);
+        assertEquals("M 1 2\n  L 1 2\n" , output);
     }
 
     @Test
@@ -31,6 +32,22 @@ public class LockerRobotDirectorTest {
         LockerRobotDirector lockerRobotDirector = new LockerRobotDirector(Arrays.asList(lockerRobotManager));
         String output = lockerRobotDirector.generateReport();
 
-        assertEquals("M 2 4\n  L 0 2\n  L 2 2" , output);
+        assertEquals("M 2 4\n  L 0 2\n  L 2 2\n" , output);
+    }
+
+    @Test
+    public void given_LockerRobotDirector_managed_1_manager_managed_1_robot_2_locker_when_generate_report_then_generate_correct_report() {
+        Locker lockerA = new Locker(2);
+        Locker lockerB = new Locker(2);
+        lockerB.store(new Bag());
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(lockerA, lockerB));
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(null, Arrays.asList(primaryLockerRobot));
+        LockerRobotDirector lockerRobotDirector = new LockerRobotDirector(Arrays.asList(lockerRobotManager));
+        String output = lockerRobotDirector.generateReport();
+        System.out.println(output);
+        System.out.println("M 3 4\n  R 3 4\n    L 2 2\n    L 1 2\n" );
+        assertEquals("M 3 4\n  R 3 4\n    L 2 2\n    L 1 2\n" , output);
     }
 }

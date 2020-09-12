@@ -1,14 +1,14 @@
 package cn.xpbootcamp.lockerrobot;
 
-import cn.xpbootcamp.locker.domain.Bag;
-import cn.xpbootcamp.locker.domain.Locker;
-import cn.xpbootcamp.locker.domain.Ticket;
+import cn.xpbootcamp.locker.domain.*;
+import cn.xpbootcamp.locker.enums.TypeEnum;
 import cn.xpbootcamp.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.locker.exception.NoAvailableSpaceException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LockerRobot {
+public abstract class LockerRobot implements Reportable {
     private List<Locker> managedLockers;
 
     public LockerRobot(List<Locker> managedLockers) {
@@ -56,4 +56,26 @@ public abstract class LockerRobot {
     }
 
     public abstract Locker getTargetLocker();
+
+    @Override
+    public Report report() {
+        Report report = new Report();
+        report.setType(TypeEnum.LOCKER_ROBOT);
+        Integer available = 0;
+        Integer capacity = 0;
+        List<Report> lockerReports = new ArrayList<Report>();
+
+        for (Locker locker : managedLockers) {
+            lockerReports.add(locker.report());
+        }
+        for (Report r : lockerReports) {
+            available += r.getAvailable();
+            capacity += r.getCapacity();
+        }
+        report.setCapacity(capacity);
+        report.setAvailable(available);
+        report.setSubReports(lockerReports);
+
+        return report;
+    }
 }

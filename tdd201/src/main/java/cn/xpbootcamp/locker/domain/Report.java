@@ -45,7 +45,7 @@ public class Report {
         this.subReports = subReports;
     }
 
-    public String print() {
+    public String print(Integer indentation) {
         StringBuilder builder = new StringBuilder();
         String typeStr;
         switch (type) {
@@ -62,11 +62,14 @@ public class Report {
                 typeStr = null;
         }
 
-        builder.append(typeStr).append(" ").append(available).append(" ").append(capacity);
+        builder.append(typeStr).append(" ").append(available).append(" ").append(capacity).append("\n");
+
 
         if (subReports != null && !subReports.isEmpty()) {
+            indentation +=2;
+            String spaces = new String(new char[indentation]).replace("\0", " ");
             for (Report sr : subReports) {
-                builder.append("\n").append("  ").append(sr.print());
+                builder.append(spaces).append(sr.print(indentation));
             }
         }
         return builder.toString();

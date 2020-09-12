@@ -14,6 +14,6 @@ public class LockerRobotDirector {
 
     public String generateReport() {
         Report report = managers.get(0).report();
-        return report.print();
+        return report.print(0);
     }
 }
