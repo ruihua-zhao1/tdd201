@@ -111,4 +111,19 @@ public class LockerRobotDirectorTest {
         assertEquals("M 14 17\n  R 2 4\n    L 2 2\n    L 0 2\n  R 11 11\n    L 11 11\n  L 0 1\n  L 1 1\n" +
                 "M 14 17\n  R 2 4\n    L 2 2\n    L 0 2\n  R 11 11\n    L 11 11\n  L 0 1\n  L 1 1\n", output);
     }
+
+    @Test
+    public void given_LockerRobotDirector_managed_1_manager_managed_1_locker_and_unmanaged_locker_and_robot_when_generate_report_then_generate_correct_report() {
+        Locker lockerA = new Locker(2);
+        Locker lockerB = new Locker(3);
+        Locker unmanagedlocker = new Locker(2);
+
+        lockerA.store(new Bag());
+        PrimaryLockerRobot primaryLockerRobot1 = new PrimaryLockerRobot(Arrays.asList(lockerB));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(lockerA), null);
+        LockerRobotDirector lockerRobotDirector = new LockerRobotDirector(Arrays.asList(lockerRobotManager));
+        String output = lockerRobotDirector.generateReport();
+
+        assertEquals("M 1 2\n  L 1 2\n", output);
+    }
 }
