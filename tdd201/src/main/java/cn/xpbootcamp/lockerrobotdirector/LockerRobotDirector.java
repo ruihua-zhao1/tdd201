@@ -1,6 +1,5 @@
 package cn.xpbootcamp.lockerrobotdirector;
 
-import cn.xpbootcamp.locker.domain.Report;
 import cn.xpbootcamp.lockerrobotmanager.LockerRobotManager;
 
 import java.util.List;
@@ -13,7 +12,11 @@ public class LockerRobotDirector {
     }
 
     public String generateReport() {
-        Report report = managers.get(0).report();
-        return report.print(0);
+        String output = "";
+        for (LockerRobotManager m : managers){
+            output += m.report().print(0);
+
+        }
+       return output;
     }
 }
